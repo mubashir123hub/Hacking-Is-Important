@@ -1,0 +1,69 @@
+Starting a Gradle Daemon, 1 incompatible and 3 stopped Daemons could not be reused, use --status for details
+
+> Configure project :
+Fabric Loom: 1.4.6
+Found existing cache lock file, rebuilding loom cache. This may have been caused by a failed or canceled build.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using of the official minecraft mappings is at your own risk!
+Please make sure to read and understand the following license:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# (c) 2020 Microsoft Corporation. These mappings are provided "as-is" and you bear the risk of using them. You may copy and use the mappings for development purposes, but you may not redistribute the mappings complete and unmodified. Microsoft makes no warranties, express or implied, with respect to the mappings provided here.  Use and modification of this document or the source code (in any form) of Minecraft: Java Edition is governed by the Minecraft End User License Agreement available at https://account.mojang.com/documents/minecraft_eula.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+FAILURE: Build completed with 2 failures.
+
+1: Task failed with an exception.
+-----------
+* What went wrong:
+A problem occurred configuring root project 'lavaclient'.
+> Could not resolve all files for configuration ':modImplementation'.
+   > Could not find net.fabricmc:fabric-language-kotlin:1.8.7+kotlin.1.8.10.
+     Searched in the following locations:
+       - file:/home/runner/workspace/.gradle/loom-cache/remapped_mods/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+       - file:/home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+       - file:/home/runner/workspace/.gradle/loom-cache/minecraftMaven/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+       - https://maven.fabricmc.net/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+       - https://libraries.minecraft.net/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+       - https://libraries.minecraft.net/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.jar
+       - https://repo.maven.apache.org/maven2/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+       - https://maven.terraformersmc.com/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.810.pom
+       - https://repo.spongepowered.org/repository/maven-public/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+     Required by:
+         project :
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+2: Task failed with an exception.
+-----------
+* What went wrong:
+Failed to query the value of property 'buildFlowServiceProperty'.
+> Could not isolate value org.jetbrains.kotlin.gradle.plugin.statistics.BuildFlowService$Parameters_Decorated@778e3748 of type BuildFlowService.Parameters
+   > A problem occurred configuring root project 'lavaclient'.
+      > Could not resolve all files for configuration ':modImplementation'.
+         > Could not find net.fabricmc:fabric-language-kotlin:1.8.7+kotlin.1.8.10.
+           Searched in the following locations:
+             - file:/home/runner/workspace/.gradle/loom-cache/remapped_mods/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+             - file:/home/runner/.gradle/caches/fabric-loom/minecraftMaven/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+             - file:/home/runner/workspace/.gradle/loom-cache/minecraftMaven/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+             - https://maven.fabricmc.net/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+             - https://libraries.minecraft.net/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+             - https://libraries.minecraft.net/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.jar
+             - https://repo.maven.apache.org/maven2/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+             - https://maven.terraformersmc.com/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+             - https://repo.spongepowered.org/repository/maven-public/net/fabricmc/fabric-language-kotlin/1.8.7+kotlin.1.8.10/fabric-language-kotlin-1.8.7+kotlin.1.8.10.pom
+           Required by:
+               project :
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+==============================================================================
+
+BUILD FAILED in 20s

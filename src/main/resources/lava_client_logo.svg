@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff3232" />
+      <stop offset="100%" stop-color="#ff9632" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="90" fill="#1a1a1a" stroke="url(#gradient)" stroke-width="4" />
+  
+  <!-- "L" Shape for Lava -->
+  <path d="M 60 50 L 60 140 L 140 140" fill="none" stroke="url(#gradient)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Dripping Lava Effect -->
+  <path d="M 100 140 Q 105 160 110 150 Q 115 140 120 160 Q 125 180 130 150" fill="none" stroke="url(#gradient)" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- Small Bubble Effects -->
+  <circle cx="70" cy="80" r="4" fill="#ff5a32" />
+  <circle cx="90" cy="100" r="6" fill="#ff7a32" />
+  <circle cx="110" cy="125" r="5" fill="#ff9a32" />
+  
+  <!-- Glow Effect -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="url(#gradient)" stroke-width="1" opacity="0.5" />
+</svg>
