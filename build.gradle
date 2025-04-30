@@ -1,98 +1,104 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.fabricmc.net/' }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath 'fabric-loom:fabric-loom.gradle.plugin:1.4.6'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
-    }
-}
-
 plugins {
-    id 'fabric-loom' version '1.4.6'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.0'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0'
+    id 'fabric-loom' version '1.4.6' // Fabric Loom plugin for Minecraft modding
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0' // Kotlin JVM plugin
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.0' // Kotlin serialization plugin
 }
 
-version = "1.0.0" //Preserving original version - may need to be replaced with project.mod_version if defined elsewhere
-group = "net.lavaclient"
-base {
-    archivesName = "lavaclient"
+group = 'net.lavaclient'
+version = '1.0.0'
+
+java {
+    // Specify compatibility with Java 17
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar() // Generate sources JAR for better IDE integration
 }
 
 repositories {
+    // Central repositories for dependencies
     mavenCentral()
-    maven { url "https://maven.fabricmc.net/" }
-    maven { url "https://maven.terraformersmc.com/" }
-    maven { url "https://repo.spongepowered.org/repository/maven-public/" }
-    maven { url "https://libraries.minecraft.net/" }
+    maven { url 'https://maven.fabricmc.net/' }
+    maven { url 'https://maven.terraformersmc.com/' }
+    maven { url 'https://repo.spongepowered.org/repository/maven-public/' }
+    maven { url 'https://libraries.minecraft.net/' }
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-    withSourcesJar()
+dependencies {
+    // Minecraft and Fabric dependencies
+    minecraft 'com.mojang:minecraft:1.20.1'
+    mappings loom.officialMojangMappings()
+    modImplementation 'net.fabricmc:fabric-loader:0.14.22'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.91.0+1.20.1'
+    modImplementation 'net.fabricmc.fabric-language-kotlin:1.9.0+kotlin.1.8.0'
+
+    // Kotlin standard library and extensions
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.0'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.8.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+
+    // Google libraries
+    implementation 'com.google.code.gson:gson:2.10.1' // JSON library
+    implementation 'com.google.guava:guava:32.1.2-jre' // Utility library
+
+    // Annotation processor for Mixin
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    // Include dependencies in mod JAR
+    include 'org.jetbrains.kotlin:kotlin-stdlib:1.8.0'
+    include 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0'
+    include 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0'
+    include 'org.jetbrains.kotlin:kotlin-reflect:1.8.0'
+    include 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0'
+    include 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // Configure Java compiler options
+    it.options.encoding = 'UTF-8'
+    it.options.release = 17 // Use Java 17
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    // Configure Kotlin compiler options
+    kotlinOptions {
+        jvmTarget = '17' // Target JVM 17
+    }
+}
+
+processResources {
+    // Modify resources with project properties
+    inputs.property 'version', project.version
+    filteringCharset 'UTF-8'
+    filesMatching('fabric.mod.json') {
+        expand 'version': project.version
+    }
+}
+
+tasks.jar {
+    // Customize JAR task
+    from('LICENSE') {
+        rename { "${it}_${base.archivesName.get()}" }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 loom {
     runs {
         client {
             client()
-            setConfigName("Fabric Client")
+            setConfigName('Fabric Client')
             ideConfigGenerated(true)
-            runDir("run")
-            vmArgs("-Xmx3G", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseG1GC", "-XX:G1NewSizePercent=20", "-XX:G1ReservePercent=20", "-XX:MaxGCPauseMillis=50", "-XX:G1HeapRegionSize=32M")
+            runDir('run')
+            vmArgs(
+                '-Xmx3G',
+                '-XX:+UnlockExperimentalVMOptions',
+                '-XX:+UseG1GC',
+                '-XX:G1NewSizePercent=20',
+                '-XX:G1ReservePercent=20',
+                '-XX:MaxGCPauseMillis=50',
+                '-XX:G1HeapRegionSize=32M'
+            )
         }
     }
 }
-
-dependencies {
-    minecraft "com.mojang:minecraft:1.20.1"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.14.22"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.91.0+1.20.1"
-    modImplementation "net.fabricmc.fabric-language-kotlin:1.9.0+kotlin.1.8.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.0"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    include "org.jetbrains.kotlin:kotlin-stdlib:1.8.0"
-    include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"
-    include "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"
-    include "org.jetbrains.kotlin:kotlin-reflect:1.8.0"
-    include "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
-    include "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"
-    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
-    implementation "com.google.code.gson:gson:2.10.1"
-    implementation "com.google.guava:guava:32.1.2-jre"
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = "UTF-8"
-    it.options.release = 17
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-}
-
-processResources {
-    inputs.property "version", project.version
-    filteringCharset "UTF-8"
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
-}
-
-tasks.jar {
-    from("LICENSE") {
-        rename { "${it}_${base.archivesName.get()}" }
-    }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-// Remove publishing block as it's not properly configured and not needed for local development
