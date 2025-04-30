@@ -22,5 +22,8 @@ jobs:
         distribution: 'temurin' # Or 'zulu', 'adopt', etc.
         java-version: '17'     # Change to your required JDK version
 
+    - name: Grant execute permission for Gradlew
+      run: chmod +x ./gradlew
+
     - name: Build with Gradle
       run: ./gradlew build
